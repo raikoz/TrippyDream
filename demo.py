@@ -8,7 +8,7 @@ import os
 import zipfile
 
 def main():
-    #Step 1 - download google's pre-trained neural network
+    #google's pre-trained neural network
     url = 'https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip'
     data_dir = 'C:/Users/KIIT/Downloads/inception5h'
     model_name = os.path.split(url)[-1]
@@ -22,12 +22,12 @@ def main():
         with zipfile.ZipFile(local_zip_file, 'r') as zip_ref:
             zip_ref.extractall(data_dir)
   
-    # start with a gray image with a little noise
+    #start with a gray image with a little noise
     img_noise = np.random.uniform(size=(224,224,3)) + 100.0
   
     model_fn = 'tensorflow_inception_graph.pb'
     
-    #Step 2 - Creating Tensorflow session and loading the model
+    #creating Tensorflow session and loading the model
     graph = tf.Graph()
     sess = tf.InteractiveSession(graph=graph)
     with tf.gfile.FastGFile(os.path.join(data_dir, model_fn), 'rb') as f:
@@ -44,10 +44,10 @@ def main():
     print('Number of layers', len(layers))
     print('Total number of feature channels:', sum(feature_nums))
   
- #####HELPER FUNCTIONS.
+ 
  
     # Helper functions for TF Graph visualization
-    #pylint: disable=unused-variable
+
     def strip_consts(graph_def, max_const_size=32):
         """Strip large constant values from graph_def."""
         strip_def = tf.GraphDef()
@@ -98,7 +98,7 @@ def main():
         
     def tffunc(*argtypes):
         '''Helper that transforms TF-graph generating function into a regular one.
-        See "resize" function below.
+        "resize" function below.
         '''
         placeholders = list(map(tf.placeholder, argtypes))
         def wrap(f):
@@ -163,7 +163,7 @@ def main():
             
          
   
-   	#Step 3 - Pick a layer to enhance our image
+   	#pick layer to enhance our image
     layer = 'mixed4d_3x3_bottleneck_pre_relu'
     channel = 139 # picking some feature channel to visualize
     
@@ -171,7 +171,7 @@ def main():
     img0 = PIL.Image.open('pilatus800.jpg')
     img0 = np.float32(img0)
      
-    #Step 4 - Apply gradient ascent to that layer
+    #gradient ascent to that layer
     render_deepdream(tf.square(T('mixed4c')), img0)
       
   
