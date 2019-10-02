@@ -1,5 +1,6 @@
 # TrippyDream
-Lol yeah.
+This python program will simulate a trippy dream.
+Just like when you are high.
 
 ## Overview
 
